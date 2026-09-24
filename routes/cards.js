@@ -1,30 +1,10 @@
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
+const router = require('express').Router();
+const {getCards, createCard, deleteCard, likeCard, dislikeCard} = require('../controllers/cards');
 
-const router = express.Router();
-
-router.get('/', (req, res) => {
-  fs.readFile(
-    path.join(__dirname, '../data/cards.json'),
-    'utf8',
-    (err, data) => {
-      if (err) {
-        return res.status(500).send({
-          message: 'Ha ocurrido un error en el servidor',
-        });
-      }
-
-      try {
-        const cards = JSON.parse(data);
-        return res.send(cards);
-      } catch (parseError) {
-        return res.status(500).send({
-          message: 'Ha ocurrido un error en el servidor',
-        });
-      }
-    },
-  );
-});
+router.get('/', getCards);
+router.post('/', createCard);
+router.delete('/:cardId', deleteCard);
+router.put('/:cardId/likes', likeCard);
+router.delete('/:cardId/likes', dislikeCard);
 
 module.exports = router;

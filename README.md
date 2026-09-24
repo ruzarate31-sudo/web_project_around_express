@@ -1,63 +1,101 @@
-# Tripleten web_project_around_express
-## Descripción del proyecto
+## TripleTen — web_project_around_express
+# Descripción del proyecto
 
-Este proyecto corresponde al desarrollo del backend de la aplicación "Alrededor de los EE. UU.".
+Alrededor de los EE. UU. es una API REST desarrollada como parte del proyecto de Backend del programa de Desarrollo Web de TripleTen.
 
-El objetivo es crear un servidor utilizando Node.js y Express que permita gestionar solicitudes HTTP y devolver información de usuarios y tarjetas mediante una API.
+El proyecto consiste en crear un servidor con Node.js y Express conectado a una base de datos MongoDB, utilizando Mongoose para definir los esquemas, modelos y validaciones de los datos.
 
-Los datos se almacenan temporalmente en archivos JSON y son leídos desde el servidor utilizando los módulos `fs` y `path` de Node.js.
+La API permite gestionar usuarios y tarjetas con fotografías, así como crear y eliminar tarjetas y agregar o eliminar "Me gusta".
 
-El proyecto también implementa manejo de errores para solicitudes a recursos inexistentes, usuarios no encontrados y problemas internos relacionados con la lectura o interpretación de los archivos JSON.
+El proyecto también incluye validación de datos y manejo de errores HTTP para responder correctamente ante solicitudes inválidas, recursos inexistentes y errores internos del servidor.
 
-## Funcionalidad
+# Funcionalidades
+Usuarios
 
-La API permite realizar las siguientes solicitudes:
+La API permite:
 
-- `GET /users` — devuelve todos los usuarios.
-- `GET /users/:id` — devuelve un usuario según su identificador.
-- `GET /cards` — devuelve todas las tarjetas.
+Obtener todos los usuarios.
+Obtener un usuario mediante su _id.
+Crear un nuevo usuario.
+Actualizar el nombre y la descripción del usuario actual.
+Actualizar el avatar del usuario actual.
 
-También se implementan respuestas de error:
+#Tarjetas
+La API permite:
 
-- `404` — usuario o recurso no encontrado.
-- `500` — error interno del servidor.
+Obtener todas las tarjetas.
+Crear una nueva tarjeta.
+Eliminar una tarjeta mediante su _id.
+Dar "Me gusta" a una tarjeta.
+Quitar el "Me gusta" de una tarjeta.
 
-## Tecnologías utilizadas
 
-- JavaScript
-- Node.js
-- Express.js
-- JSON
-- Git
-- GitHub
-- Postman
-- ESLint
-- Airbnb JavaScript Style Guide
-- Nodemon
+# Validación y manejo de errores
 
-## Técnicas utilizadas
+El servidor valida los datos recibidos y devuelve códigos de estado HTTP adecuados:
 
-- Creación de un servidor con Express.
-- Creación de rutas HTTP.
-- Uso de `express.Router()` para modularizar las rutas.
-- Lectura de archivos con `fs.readFile()`.
-- Construcción de rutas de archivos con `path.join()`.
-- Uso de módulos con `require()` y `module.exports`.
-- Manejo de códigos de estado HTTP.
-- Manejo de errores con condiciones y `try...catch`.
-- Separación del proyecto en módulos de rutas y datos.
-- Hot reload durante el desarrollo utilizando Nodemon.
+400 — datos proporcionados no válidos.
+404 — usuario, tarjeta o recurso no encontrado.
+500 — error interno del servidor.
 
-## Estructura del proyecto
+Las respuestas de error contienen un objeto JSON con un campo message.
 
-```text
+# Tecnologías utilizadas
+JavaScript
+Node.js
+Express.js
+MongoDB
+Mongoose
+REST API
+HTTP
+Git
+GitHub
+Postman
+MongoDB Compass
+ESLint
+Airbnb JavaScript Style Guide
+Nodemon
+
+# Técnicas y conceptos utilizados
+Creación de un servidor con Express.
+Creación y organización de rutas mediante express.Router().
+Creación de controladores para usuarios y tarjetas.
+Creación de esquemas y modelos con Mongoose.
+Conexión de Node.js con MongoDB.
+Validación de datos mediante esquemas de Mongoose.
+Validación de URLs mediante expresiones regulares.
+Uso de ObjectId para relacionar usuarios y tarjetas.
+Uso de req.params para obtener identificadores de las URL.
+Uso de req.body para recibir datos enviados por el cliente.
+Uso de req.user como usuario autenticado temporalmente.
+Uso de operadores de MongoDB como $addToSet y $pull.
+Manejo de códigos de estado HTTP.
+Manejo de errores mediante .catch().
+Uso de orFail() para gestionar recursos inexistentes.
+Uso de runValidators: true al actualizar datos.
+Uso de { new: true } para devolver el documento actualizado.
+Separación de rutas, controladores y modelos.
+Uso de Nodemon para reiniciar automáticamente el servidor durante el desarrollo.
+Aplicación de las reglas de estilo de Airbnb mediante ESLint.
+
+# Estructura del proyecto
 web_project_around_express/
-├── data/
-│   ├── cards.json
-│   └── users.json
+│
+├── controllers/
+│   ├── cards.js
+│   └── users.js
+│
+├── models/
+│   ├── card.js
+│   └── user.js
+│
 ├── routes/
 │   ├── cards.js
 │   └── users.js
+│
+├── .editorconfig
+├── .eslintrc
+├── .gitignore
 ├── app.js
 ├── package.json
 └── README.md
